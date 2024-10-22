@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useSession } from "@supabase/auth-helpers-react";
 import { supabase, signInWithGoogle, signOut } from "@/lib/supabase/client";
@@ -41,7 +42,15 @@ export default function Navbar() {
 		<nav className="fixed top-0 w-full flex items-center justify-between p-4 bg-gray-800 text-white z-50">
 			{/* Logo */}
 			<Link href="/">
-				<h1 className="text-lg font-bold cursor-pointer">Boxify</h1>
+				<div className="flex items-center space-x-2 cursor-pointer">
+					<Image
+						src="/icon512_rounded.png"
+						width={40}
+						height={40}
+						alt="Boxify Logo"
+					/>
+					<h1 className="text-lg font-bold cursor-pointer">Boxify</h1>
+				</div>
 			</Link>
 
 			<div className="ml-auto flex items-center space-x-4">
