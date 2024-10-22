@@ -25,7 +25,7 @@ export default function HomePage() {
 			</p>
 			<div className="flex justify-center mb-4 w-full">
 				<button
-					onClick={signInWithGoogle}
+					onClick={() => signInWithGoogle()}
 					className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 w-full md:w-auto"
 				>
 					Şimdi Başlayın
