@@ -17,7 +17,7 @@ export default function HomePage() {
 	return (
 		<Card>
 			<h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
-				Boxify'a Hoşgeldiniz!
+				Boxify&apos;a Hoşgeldiniz!
 			</h1>
 			<p className="text-lg text-center text-gray-600 mb-8">
 				Kendi listelerinizi oluşturun, düzenleyin ve QR kodlarla yönetimi
