@@ -1,5 +1,5 @@
 {
-	"theme_color": "#fff",
+	"theme_color": "#1f2937",
 	"background_color": "#1f2937",
 	"icons": [
 		{
@@ -20,9 +20,6 @@
 	"dir": "auto",
 	"lang": "tr",
 	"name": "Boxify",
-	"start_url": "https://boxify.cloud/",
 	"description": "Kendi listelerinizi oluşturun, düzenleyin ve QR kodlarla yönetimi kolaylaştırın.",
-	"scope": "https://boxify.cloud/",
-	"short_name": "Boxify",
-	"id": "https://boxify.cloud/"
+	"short_name": "Boxify"
 }
