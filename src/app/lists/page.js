@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import Link from "next/link";
 import Card from "@/components/Card";
+import CardTitle from "@/components/CardTitle";
 
 export default function ListsPage() {
 	const [lists, setLists] = useState([]);
@@ -87,9 +88,7 @@ export default function ListsPage() {
 
 	return (
 		<Card>
-			<h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-				Listelerinizi Yönetin
-			</h1>
+			<CardTitle>Listelerinizi Yönetin</CardTitle>
 			{error && <p className="text-center text-red-500 mb-4">{error}</p>}
 			<div className="flex w-full mb-6">
 				<input

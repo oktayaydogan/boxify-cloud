@@ -1,10 +1,12 @@
 "use client";
 
-import Card from "@/components/Card";
 import { useSession } from "@supabase/auth-helpers-react";
 import { signInWithGoogle } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+import Card from "@/components/Card";
+import CardTitle from "@/components/CardTitle";
 
 export default function HomePage() {
 	const session = useSession();
@@ -16,9 +18,7 @@ export default function HomePage() {
 
 	return (
 		<Card>
-			<h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
-				Boxify&apos;a Hoşgeldiniz!
-			</h1>
+			<CardTitle>Boxify&apos;a Hoşgeldiniz!</CardTitle>
 			<p className="text-lg text-center text-gray-600 mb-8">
 				Kendi listelerinizi oluşturun, düzenleyin ve QR kodlarla yönetimi
 				kolaylaştırın.
