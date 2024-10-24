@@ -118,7 +118,7 @@ export default function Navbar() {
 					</div>
 				) : (
 					<button
-						onClick={() => signInWithGoogle()}
+						onClick={signInWithGoogle}
 						className="px-4 py-2 bg-blue-500 rounded"
 					>
 						Giriş Yap

@@ -3,16 +3,32 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
-import Link from "next/link";
+import { FaPlus } from "react-icons/fa"; // FaPlus ikonu import edildi
 import Card from "@/components/Card";
 import CardTitle from "@/components/CardTitle";
+import ViewModeToggle from "@/components/ViewModeToggle";
+import ListItem from "@/components/ListItem";
+import ListItemSkeleton from "@/components/ListItemSkeleton";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 export default function ListsPage() {
 	const [lists, setLists] = useState([]);
 	const [listName, setListName] = useState("");
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [viewMode, setViewMode] = useLocalStorage("viewMode", "list");
+	const [isInputVisible, setIsInputVisible] = useState(false); // Input'un görünürlüğü için state
 	const router = useRouter();
+
+	// Hata mesajını geçici olarak göster
+	useEffect(() => {
+		if (error) {
+			const timer = setTimeout(() => {
+				setError("");
+			}, 5000);
+			return () => clearTimeout(timer);
+		}
+	}, [error]);
 
 	// Listeleri yükleme
 	useEffect(() => {
@@ -50,7 +66,6 @@ export default function ListsPage() {
 			return;
 		}
 
-		// Oturum açmış kullanıcının kimliğini al
 		const {
 			data: { user },
 		} = await supabase.auth.getUser();
@@ -60,7 +75,6 @@ export default function ListsPage() {
 			return;
 		}
 
-		// Yeni liste ekleme
 		const { data, error } = await supabase
 			.from("lists")
 			.insert([{ name: listName, user_id: user.id, is_public: false }])
@@ -72,6 +86,7 @@ export default function ListsPage() {
 			setLists([data[0], ...lists]);
 			setListName("");
 			setError("");
+			setIsInputVisible(false); // Liste eklenince input'u gizle
 		}
 	};
 
@@ -90,64 +105,64 @@ export default function ListsPage() {
 		<Card>
 			<CardTitle>Listelerinizi Yönetin</CardTitle>
 			{error && <p className="text-center text-red-500 mb-4">{error}</p>}
-			<div className="flex w-full mb-6">
-				<input
-					type="text"
-					value={listName}
-					onChange={(e) => setListName(e.target.value)}
-					placeholder="Yeni liste adı"
-					className="flex-grow p-3 border rounded-l-lg focus:outline-none focus:ring focus:border-blue-300"
-				/>
-				<button
-					onClick={handleCreateList}
-					className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-r-lg transition duration-300"
-				>
-					Liste Oluştur
-				</button>
+			<div className="flex justify-between gap-48 items-center mb-4">
+				<div className="flex-grow">
+					{/* search list */}
+					<input
+						type="text"
+						placeholder="Liste ara"
+						className="p-2 w-full border rounded-lg focus:outline-none focus:border-blue-300"
+					/>
+				</div>
+				<div className="flex gap-2 items-center">
+					<button
+						onClick={() => setIsInputVisible(!isInputVisible)}
+						className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 flex items-center justify-center gap-1"
+					>
+						<FaPlus />
+						<span>Yeni Liste</span>
+					</button>
+					<ViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />
+				</div>
 			</div>
-			<div className="space-y-4">
-				{loading &&
-					// placeholder box
-					[1, 2, 3].map((_, index) => (
-						<div
-							key={index}
-							className="animate-pulse flex items-center justify-between p-4 border rounded-lg"
-						>
-							<div>
-								<div className="w-96 h-5 mb-2 bg-gray-200 rounded-lg"></div>
-								<div className="w-3/4 h-4 bg-gray-200 rounded-lg"></div>
-							</div>
 
-							<div className="w-1/12 h-10 bg-gray-200 rounded-lg"></div>
-						</div>
-					))}
+			{isInputVisible && (
+				<div className="flex w-full mb-6">
+					<input
+						onKeyDown={(e) => e.key === "Enter" && handleCreateList()}
+						type="text"
+						value={listName}
+						onChange={(e) => setListName(e.target.value)}
+						placeholder="Yeni liste adı"
+						className="flex-grow p-3 border rounded-l-lg focus:outline-none focus:border-blue-300"
+					/>
+					<button
+						onClick={handleCreateList}
+						className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-r-lg transition duration-300"
+					>
+						Liste Oluştur
+					</button>
+				</div>
+			)}
+
+			<div
+				className={`${
+					viewMode === "grid" ? "grid grid-cols-2 gap-4" : "space-y-4"
+				}`}
+			>
+				{loading && <ListItemSkeleton />}
 				{lists.length === 0 && !loading ? (
 					<p className="text-center text-gray-600">
 						Henüz oluşturulmuş bir listeniz yok.
 					</p>
 				) : (
 					lists.map((list) => (
-						<div
+						<ListItem
 							key={list.id}
-							className="flex items-center justify-between p-4 border rounded-lg hover:shadow-lg transition duration-300"
-						>
-							<div>
-								<h2 className="text-xl font-bold text-gray-800">
-									<Link href={`/lists/${list.id}`}>{list.name}</Link>
-								</h2>
-								<p className="text-sm text-gray-600">
-									{list.is_public ? "Herkese Açık" : "Özel"}
-									{" - "}
-									{new Date(list.created_at).toLocaleString()}
-								</p>
-							</div>
-							<button
-								onClick={() => handleDeleteList(list.id)}
-								className="px-4 py-2 bg-red-500 text-white rounded-lg"
-							>
-								Sil
-							</button>
-						</div>
+							list={list}
+							handleDeleteList={handleDeleteList}
+							viewMode={viewMode}
+						/>
 					))
 				)}
 			</div>
