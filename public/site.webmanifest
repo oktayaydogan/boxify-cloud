@@ -1,5 +1,5 @@
 {
-	"theme_color": "#1f2937",
+	"theme_color": "#f3f4f6",
 	"background_color": "#f3f4f6",
 	"icons": [
 		{
@@ -15,7 +15,7 @@
 			"type": "image/png"
 		}
 	],
-	"orientation": "any",
+	"orientation": "portrait",
 	"display": "standalone",
 	"dir": "auto",
 	"lang": "tr",
