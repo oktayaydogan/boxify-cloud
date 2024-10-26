@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
 				href="/apple-touch-icon.png"
 			/>
 			<meta name="apple-mobile-web-app-title" content="Boxify" />
-			<link rel="manifest" href="/site.webmanifest" />
+			<link rel="manifest" href="/manifest.json" />
 			<body className="antialiased mt-20 bg-gray-100">
 				<ClientWrapper>
 					<Navbar />
