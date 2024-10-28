@@ -61,12 +61,18 @@ export default function useLists() {
 			return;
 		}
 
+		// search items by name join with list
 		const { data, error } = await supabase
-			.from("lists")
-			.select("*")
-			.eq("user_id", user.id)
+			.from("items")
+			.select("*,list:lists(*)")
 			.ilike("name", `%${searchTerm}%`)
-			.order("created_at", { ascending: false });
+			.eq("list.user_id", user.id);
+
+		data.forEach((item) => {
+			item.id = item.list_id;
+		});
+
+		setLoading(false);
 
 		if (error) {
 			setError(error.message);
