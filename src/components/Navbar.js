@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -19,6 +19,13 @@ export default function Navbar() {
 	const router = useRouter();
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [userMenuOpen, setUserMenuOpen] = useState(false);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (session !== undefined) {
+			setLoading(false); // Oturum durumu yüklendiğinde "Yükleniyor..." göstergesini kaldır
+		}
+	}, [session]);
 
 	const handleSignOut = async () => {
 		await signOut();
@@ -54,40 +61,10 @@ export default function Navbar() {
 			</Link>
 
 			<div className="ml-auto flex items-center space-x-4">
-				{/*<div className="relative">
-					<button
-						className="px-4 py-2 bg-gray-700 rounded"
-						onClick={() => setMenuOpen(!menuOpen)}
-					>
-						<FaBars size={24} /> 
-					</button>
-					{menuOpen && (
-						<ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
-							<li>
-								<Link
-									href="/lists"
-									className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-200 rounded"
-								>
-									<FaList /> 
-									<span>Listelerim</span>
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="/about"
-									className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-200 rounded"
-								>
-									<FaInfoCircle /> 
-									<span>Hakkımızda</span>
-								</Link>
-							</li>
-						</ul>
-					)}
-				</div>
-				*/}
-
-				{/* Kullanıcı İkonu ve İsim Baş Harfleri */}
-				{session ? (
+				{loading ? (
+					// Yükleniyor göstergesi
+					<span className="text-gray-400">Yükleniyor...</span>
+				) : session ? (
 					<div className="relative">
 						<button
 							onClick={() => setUserMenuOpen(!userMenuOpen)}

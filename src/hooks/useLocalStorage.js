@@ -1,31 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-function useLocalStorage(key, initialValue) {
+export default function useLocalStorage(key, initialValue) {
 	const [storedValue, setStoredValue] = useState(() => {
-		if (typeof window !== "undefined") {
-			try {
-				const item = window.localStorage.getItem(key);
-				return item ? JSON.parse(item) : initialValue;
-			} catch (error) {
-				console.error(error);
-				return initialValue;
-			}
+		try {
+			const item = window.localStorage.getItem(key);
+			// JSON formatına uygun değilse initialValue olarak başlat
+			return item ? JSON.parse(item) : initialValue;
+		} catch (error) {
+			console.error("LocalStorage parse hatası:", error);
+			return initialValue;
 		}
-		return initialValue;
 	});
 
 	const setValue = (value) => {
 		try {
-			setStoredValue(value);
-			if (typeof window !== "undefined") {
-				window.localStorage.setItem(key, JSON.stringify(value));
-			}
+			// value değeri stringe çevriliyor ve localStorage’a kaydediliyor
+			const valueToStore =
+				value instanceof Function ? value(storedValue) : value;
+			setStoredValue(valueToStore);
+			window.localStorage.setItem(key, JSON.stringify(valueToStore));
 		} catch (error) {
-			console.error(error);
+			console.error("LocalStorage set hatası:", error);
 		}
 	};
 
 	return [storedValue, setValue];
 }
-
-export default useLocalStorage;
