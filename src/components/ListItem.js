@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { FaList, FaLock, FaGlobe, FaTrash, FaCalendarAlt, FaBox } from "react-icons/fa";
+import { FaList, FaLock, FaGlobe, FaTrash, FaCalendarAlt, FaBox, FaQrcode } from "react-icons/fa";
 import { memo, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
+import QRCodeModal from "./QRCodeModal";
 
 function ListItem({ list, handleDeleteList }) {
 const [itemCount, setItemCount] = useState(0);
 const [loading, setLoading] = useState(true);
+const [showQRModal, setShowQRModal] = useState(false);
 
 useEffect(() => {
 const fetchItemCount = async () => {
@@ -55,7 +57,18 @@ return (
 </div>
 </div>
 </div>
-{/* Delete Button */}
+{/* Action Buttons */}
+<div className="flex gap-1">
+<button
+onClick={(e) => {
+e.preventDefault();
+setShowQRModal(true);
+}}
+className="opacity-0 group-hover:opacity-100 p-2 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200 flex-shrink-0"
+title="QR Kod"
+>
+<FaQrcode size={14} />
+</button>
 <button
 onClick={(e) => {
 e.preventDefault();
@@ -66,6 +79,7 @@ title="Kutuyu sil"
 >
 <FaTrash size={14} />
 </button>
+</div>
 </div>
 
 {/* Metadata */}
@@ -105,6 +119,14 @@ year: 'numeric'
 </span>
 </div>
 </div>
+
+{/* QR Code Modal */}
+<QRCodeModal
+isOpen={showQRModal}
+onClose={() => setShowQRModal(false)}
+listId={list.id}
+listName={list.name}
+/>
 </div>
 );
 }
