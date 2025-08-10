@@ -66,6 +66,46 @@ setLists(data);
 
     setLoading(true);
 
+    // Önce kullanıcının tüm listelerini al
+    const { data: userLists, error: userListsError } = await supabase
+      .from("lists")
+      .select("id")
+      .eq("user_id", user.id);
+
+    if (userListsError) {
+      setError(userListsError.message);
+      setLoading(false);
+      return;
+    }
+
+    const userListIds = userLists.map(list => list.id);
+
+    // Eğer kullanıcının hiç listesi yoksa sadece liste araması yap
+    if (userListIds.length === 0) {
+      const listsResult = await supabase
+        .from("lists")
+        .select("*")
+        .eq("user_id", user.id)
+        .ilike("name", `%${searchTerm}%`);
+
+      setLoading(false);
+
+      if (listsResult.error) {
+        setError(listsResult.error.message);
+        return;
+      }
+
+      const results = listsResult.data.map(list => ({
+        ...list,
+        searchType: 'list',
+        displayName: list.name,
+        parentList: null
+      }));
+
+      setLists(results);
+      return;
+    }
+
     // Hem liste adlarında hem de öğe adlarında arama yap
     const [listsResult, itemsResult] = await Promise.all([
       // Liste adlarında arama
@@ -75,12 +115,12 @@ setLists(data);
         .eq("user_id", user.id)
         .ilike("name", `%${searchTerm}%`),
       
-      // Öğe adlarında arama (liste bilgisiyle birlikte)
+      // Öğe adlarında arama (sadece kullanıcının listelerinde)
       supabase
         .from("items")
         .select("*, list:lists(id, name)")
         .ilike("name", `%${searchTerm}%`)
-        .eq("list.user_id", user.id)
+        .in("list_id", userListIds)
     ]);
 
     setLoading(false);
