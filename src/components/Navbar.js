@@ -59,7 +59,7 @@ alt="Boxify Logo"
 className="transition-transform duration-300 group-hover:scale-110"
 />
 </div>
-<h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+<h1 className="text-xl font-bold text-gray-800">
 Boxify
 </h1>
 </div>
@@ -76,7 +76,7 @@ Boxify
 <div className="relative">
 <button
 onClick={() => setUserMenuOpen(!userMenuOpen)}
-className="group p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+className="group p-2 bg-gray-600 rounded-full hover:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
 >
 {/* Kullanıcı adı yoksa ikon göster */}
 {getInitials() ? (
@@ -112,7 +112,7 @@ className="flex items-center space-x-3 w-full px-4 py-3 text-left hover:bg-red-5
 ) : (
 <button
 onClick={signInWithGoogle}
-className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2"
+className="px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2"
 >
 <FaUserCircle />
 Giriş Yap

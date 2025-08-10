@@ -29,7 +29,7 @@ kolaylaştırın.
 <div className="flex justify-center mb-12 w-full">
 <button
 onClick={() => signInWithGoogle()}
-className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3"
+className="group bg-gray-700 hover:bg-gray-800 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 w-full sm:w-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3"
 >
 <FaGoogle className="group-hover:rotate-12 transition-transform duration-300" />
 Google ile Giriş Yap
@@ -39,9 +39,9 @@ Google ile Giriş Yap
 {/* Features Grid */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
 {/* Feature 1 */}
-<div className="group p-6 border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-blue-50">
+<div className="group p-6 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-gray-50">
 <div className="flex items-center gap-4 mb-4">
-<div className="p-3 rounded-full bg-blue-100 text-blue-600 group-hover:scale-110 transition-transform duration-300">
+<div className="p-3 rounded-full bg-gray-200 text-gray-700 group-hover:scale-110 transition-transform duration-300">
 <FaList size={24} />
 </div>
 <h2 className="text-xl font-bold text-gray-800">
@@ -55,9 +55,9 @@ QR koduyla yönetin.
 </div>
 
 {/* Feature 2 */}
-<div className="group p-6 border border-gray-200 rounded-xl hover:border-green-300 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-green-50">
+<div className="group p-6 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-gray-50">
 <div className="flex items-center gap-4 mb-4">
-<div className="p-3 rounded-full bg-green-100 text-green-600 group-hover:scale-110 transition-transform duration-300">
+<div className="p-3 rounded-full bg-gray-200 text-gray-700 group-hover:scale-110 transition-transform duration-300">
 <FaQrcode size={24} />
 </div>
 <h2 className="text-xl font-bold text-gray-800">
@@ -71,9 +71,9 @@ her yerden erişim sağlayın.
 </div>
 
 {/* Feature 3 */}
-<div className="group p-6 border border-gray-200 rounded-xl hover:border-purple-300 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-purple-50">
+<div className="group p-6 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-gray-50">
 <div className="flex items-center gap-4 mb-4">
-<div className="p-3 rounded-full bg-purple-100 text-purple-600 group-hover:scale-110 transition-transform duration-300">
+<div className="p-3 rounded-full bg-gray-200 text-gray-700 group-hover:scale-110 transition-transform duration-300">
 <FaLock size={24} />
 </div>
 <h2 className="text-xl font-bold text-gray-800">
@@ -87,9 +87,9 @@ belirleyin.
 </div>
 
 {/* Feature 4 */}
-<div className="group p-6 border border-gray-200 rounded-xl hover:border-orange-300 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-orange-50">
+<div className="group p-6 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-white to-gray-50">
 <div className="flex items-center gap-4 mb-4">
-<div className="p-3 rounded-full bg-orange-100 text-orange-600 group-hover:scale-110 transition-transform duration-300">
+<div className="p-3 rounded-full bg-gray-200 text-gray-700 group-hover:scale-110 transition-transform duration-300">
 <FaMobile size={24} />
 </div>
 <h2 className="text-xl font-bold text-gray-800">
