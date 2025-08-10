@@ -96,6 +96,16 @@ className="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-gray-600
 )}
 </div>
 <div className="flex gap-2 items-center">
+{!isSearching && lists.length > 0 && (
+<Link 
+href="/lists/all-items"
+className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition duration-300 flex items-center justify-center gap-1 whitespace-nowrap"
+>
+<FaBox />
+<span className="hidden sm:inline">Tüm Öğeler</span>
+<span className="sm:hidden">Öğeler</span>
+</Link>
+)}
 <button
 onClick={() => setIsInputVisible(!isInputVisible)}
 className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 flex items-center justify-center gap-1 whitespace-nowrap"
@@ -107,18 +117,6 @@ className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 trans
 </div>
 </div>
 
-{/* View All Items Button */}
-{!isSearching && lists.length > 0 && (
-<div className="flex justify-center">
-<Link 
-href="/lists/all-items"
-className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2"
->
-<FaBox />
-Tüm Öğeleri Görüntüle
-</Link>
-</div>
-)}
 </div>
 
 {isInputVisible && (
