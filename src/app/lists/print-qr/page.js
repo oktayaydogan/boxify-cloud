@@ -131,7 +131,7 @@ return (
 <div className="print:hidden mb-6">
 <Card>
 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-<div>
+<div className="flex-1">
 <h1 className="text-2xl font-bold text-gray-800 mb-2">QR Kodlarını Yazdır</h1>
 <p className="text-gray-600 mb-2">
 {selectedLists.size} / {lists.length} kutu seçili
