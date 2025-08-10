@@ -69,7 +69,7 @@ function SearchResultItem({ item, searchTerm, handleDeleteList }) {
                   ? 'bg-blue-50 text-blue-700 border border-blue-200' 
                   : 'bg-green-50 text-green-700 border border-green-200'
               }`}>
-                {item.searchType === 'list' ? '📋 Kutu' : '📦 Öğe'}
+                {item.searchType === 'list' ? '📦 Kutu' : '🔧 Öğe'}
               </span>
             </div>
           </div>

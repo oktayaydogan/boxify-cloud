@@ -188,7 +188,7 @@ title="Öğeyi sil"
 
 <div className="flex justify-between items-center text-sm text-gray-500">
 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
-📦 Öğe
+🔧 Öğe
 </span>
 <span>
 {new Date(item.created_at).toLocaleDateString('tr-TR', {

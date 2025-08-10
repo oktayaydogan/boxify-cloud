@@ -115,7 +115,7 @@ year: 'numeric'
 {/* Badge */}
 <div className="flex-shrink-0">
 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
-📋 Kutu
+📦 Kutu
 </span>
 </div>
 </div>
