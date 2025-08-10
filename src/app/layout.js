@@ -3,9 +3,9 @@ import ClientWrapper from "./client-wrapper";
 import Navbar from "@/components/Navbar";
 
 export const metadata = {
-	title: "Boxify",
-	description:
-		"Kendi listelerinizi oluşturun, düzenleyin ve QR kodlarla yönetimi kolaylaştırın.",
+title: "Boxify",
+description:
+"Kendi kutularınızı oluşturun, düzenleyin ve QR kodlarla yönetimi kolaylaştırın.",
 };
 
 export default function RootLayout({ children }) {

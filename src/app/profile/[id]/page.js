@@ -18,6 +18,11 @@ const [isOwnProfile, setIsOwnProfile] = useState(false);
 const { id: profileUserId } = params;
 
 useEffect(() => {
+// Update page title
+document.title = isOwnProfile ? "Profilim - Boxify" : `${getUserDisplayName()} - Profil - Boxify`;
+}, [isOwnProfile, profileUser]);
+
+useEffect(() => {
 const fetchProfileData = async () => {
 try {
 setLoading(true);

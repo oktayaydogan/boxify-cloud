@@ -14,6 +14,11 @@ const [loading, setLoading] = useState(true);
 const [searchTerm, setSearchTerm] = useState("");
 const [filteredLists, setFilteredLists] = useState([]);
 
+// Update page title
+useEffect(() => {
+document.title = "Keşfet - Boxify";
+}, []);
+
 useEffect(() => {
 const fetchPublicLists = async () => {
 try {

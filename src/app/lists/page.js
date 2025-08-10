@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
+import { useEffect } from "react";
 import { FaPlus, FaSearch, FaTimes, FaSpinner, FaBox } from "react-icons/fa";
 import Link from "next/link";
 import useLists from "@/hooks/useLists";
@@ -18,6 +19,11 @@ const [isInputVisible, setIsInputVisible] = useState(false);
 const [isPublic, setIsPublic] = useState(false);
 const [searchTerm, setSearchTerm] = useState("");
 const [isSearching, setIsSearching] = useState(false);
+
+// Update page title
+useEffect(() => {
+document.title = "Kutularım - Boxify";
+}, []);
 
 const handleCreateList = async () => {
 await createList(listName, setError, setLists, lists, isPublic);
