@@ -178,7 +178,7 @@ setLists(data);
     debounceRef.current = setTimeout(() => {
       searchLists(searchTerm);
     }, 500);
-  }, []);
+  }, [searchLists]);
 
   // Component unmount olduğunda timeout'u temizle
   useEffect(() => {

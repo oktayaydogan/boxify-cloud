@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { FaBox, FaList, FaTrash } from "react-icons/fa";
+import { memo } from "react";
 
 // Arama terimini vurgulayan yardımcı fonksiyon
 const highlightSearchTerm = (text, searchTerm) => {
@@ -17,7 +18,7 @@ const highlightSearchTerm = (text, searchTerm) => {
   );
 };
 
-export default function SearchResultItem({ item, searchTerm, handleDeleteList }) {
+function SearchResultItem({ item, searchTerm, handleDeleteList }) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -88,3 +89,5 @@ export default function SearchResultItem({ item, searchTerm, handleDeleteList })
     </div>
   );
 }
+
+export default memo(SearchResultItem);

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { FaList, FaLock, FaGlobe, FaTrash, FaCalendarAlt } from "react-icons/fa";
+import { memo } from "react";
 
-export default function ListItem({ list, handleDeleteList }) {
+function ListItem({ list, handleDeleteList }) {
 return (
 <div className="group p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 w-full bg-white">
 <div className="flex items-start justify-between mb-3">
@@ -71,3 +72,5 @@ year: 'numeric'
 </div>
 );
 }
+
+export default memo(ListItem);

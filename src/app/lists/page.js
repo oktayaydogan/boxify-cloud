@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { FaPlus, FaSearch, FaTimes, FaSpinner } from "react-icons/fa";
 import useLists from "@/hooks/useLists";
 import { createList, deleteList } from "@/utils/ListActions";
@@ -29,14 +29,38 @@ setIsSearching(value.length >= 3);
 searchLists(value);
 };
 
-const handleDeleteItem = (item) => {
+const handleDeleteItem = useCallback((item) => {
 if (item.searchType === 'list') {
 deleteList(item.id, setError, setLists, lists);
 } else {
 // Öğeler için silme işlemi şimdilik desteklenmiyor
 console.log('Öğe silme işlemi henüz desteklenmiyor');
 }
-};
+}, [setError, setLists, lists]);
+
+// Memoize expensive calculations
+const memoizedSearchResults = useMemo(() => {
+if (!isSearching) return null;
+return lists.map((list) => (
+<SearchResultItem
+key={list.id}
+item={list}
+searchTerm={searchTerm}
+handleDeleteList={() => handleDeleteItem(list)}
+/>
+));
+}, [lists, searchTerm, isSearching, handleDeleteItem]);
+
+const memoizedListResults = useMemo(() => {
+if (isSearching) return null;
+return lists.map((list) => (
+<ListItem
+key={list.id}
+list={list}
+handleDeleteList={() => deleteList(list.id, setError, setLists, lists)}
+/>
+));
+}, [lists, isSearching, setError, setLists]);
 
 	return (
 		<Card>
@@ -116,14 +140,7 @@ Liste Oluştur
 Arama kriterlerinize uygun sonuç bulunamadı.
 </p>
 ) : (
-lists.map((list) => (
-<SearchResultItem
-key={list.id}
-item={list}
-searchTerm={searchTerm}
-handleDeleteList={() => handleDeleteItem(list)}
-/>
-))
+memoizedSearchResults
 )}
 </div>
 ) : (
@@ -134,15 +151,7 @@ handleDeleteList={() => handleDeleteItem(list)}
 Henüz oluşturulmuş bir listeniz yok.
 </p>
 ) : (
-lists.map((list) => (
-<ListItem
-key={list.id}
-list={list}
-handleDeleteList={() =>
-deleteList(list.id, setError, setLists, lists)
-}
-/>
-))
+memoizedListResults
 )}
 </div>
 )}
