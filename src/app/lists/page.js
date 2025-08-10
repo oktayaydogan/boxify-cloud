@@ -40,7 +40,7 @@ searchLists(value);
 
 const handleDeleteItem = useCallback((item) => {
 if (item.searchType === 'list') {
-deleteList(item.id, setError, setLists, lists);
+deleteList(item.id, setError, setLists, lists, item.name);
 } else {
 // Öğeler için silme işlemi şimdilik desteklenmiyor
 console.log('Öğe silme işlemi henüz desteklenmiyor');
@@ -66,7 +66,7 @@ return lists.map((list) => (
 <ListItem
 key={list.id}
 list={list}
-handleDeleteList={() => deleteList(list.id, setError, setLists, lists)}
+handleDeleteList={() => deleteList(list.id, setError, setLists, lists, list.name)}
 />
 ));
 }, [lists, isSearching, setError, setLists]);

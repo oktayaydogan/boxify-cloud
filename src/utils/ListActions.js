@@ -27,12 +27,20 @@ setLists([data[0], ...lists]);
 }
 };
 
-export const deleteList = async (id, setError, setLists, lists) => {
-	const { error } = await supabase.from("lists").delete().eq("id", id);
+export const deleteList = async (id, setError, setLists, lists, listName) => {
+const confirmed = window.confirm(
+`"${listName}" kutusunu silmek istediğinizden emin misiniz?\n\nBu işlem geri alınamaz ve kutudaki tüm öğeler de silinecektir.`
+);
 
-	if (error) {
-		setError(error.message);
-	} else {
-		setLists(lists.filter((list) => list.id !== id));
-	}
+if (!confirmed) {
+return;
+}
+
+const { error } = await supabase.from("lists").delete().eq("id", id);
+
+if (error) {
+setError("Kutu silinirken bir hata oluştu: " + error.message);
+} else {
+setLists(lists.filter((list) => list.id !== id));
+}
 };

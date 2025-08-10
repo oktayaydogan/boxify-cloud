@@ -72,7 +72,7 @@ title="QR Kod"
 <button
 onClick={(e) => {
 e.preventDefault();
-handleDeleteList(list.id);
+handleDeleteList(list.id, list.name);
 }}
 className="opacity-0 group-hover:opacity-100 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200 flex-shrink-0"
 title="Kutuyu sil"

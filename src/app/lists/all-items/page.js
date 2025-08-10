@@ -63,7 +63,14 @@ setFilteredItems(filtered);
 }
 }, [searchTerm, allItems]);
 
-const handleDeleteItem = async (itemId) => {
+const handleDeleteItem = async (itemId, itemName) => {
+const confirmed = window.confirm(
+`"${itemName}" öğesini silmek istediğinizden emin misiniz?\n\nBu işlem geri alınamaz.`
+);
+
+if (!confirmed) {
+return;
+}
 try {
 const { error } = await supabase
 .from("items")
@@ -171,7 +178,7 @@ className="group p-4 border border-gray-200 rounded-lg hover:border-blue-300 hov
 </div>
 </div>
 <button
-onClick={() => handleDeleteItem(item.id)}
+onClick={() => handleDeleteItem(item.id, item.name)}
 className="opacity-0 group-hover:opacity-100 p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200 flex-shrink-0"
 title="Öğeyi sil"
 >

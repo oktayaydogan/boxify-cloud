@@ -98,7 +98,15 @@ setItemName(""); // Eklemeden sonra giriş alanını temizle
 }
 
 // Listeden öğe silme
-async function deleteItem(itemId) {
+async function deleteItem(itemId, itemName) {
+const confirmed = window.confirm(
+`"${itemName}" öğesini silmek istediğinizden emin misiniz?\n\nBu işlem geri alınamaz.`
+);
+
+if (!confirmed) {
+return;
+}
+
 const { error } = await supabase.from("items").delete().eq("id", itemId);
 
 if (error) {
@@ -185,7 +193,7 @@ items.map((item) => (
 <ItemCard
 key={item.id}
 item={item}
-handleDeleteItem={() => deleteItem(item.id)}
+handleDeleteItem={() => deleteItem(item.id, item.name)}
 showDeleteButton={session && list && session.user.id === list.user_id}
 />
 ))
