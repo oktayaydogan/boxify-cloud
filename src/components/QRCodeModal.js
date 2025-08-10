@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import QRCode from "react-qr-code";
 import { FaTimes, FaDownload, FaQrcode } from "react-icons/fa";
 
@@ -56,10 +57,10 @@ img.src = "data:image/svg+xml;base64," + btoa(svgData);
 
 if (!isOpen) return null;
 
-return (
+const modalContent = (
 <div 
 className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"
-style={{ zIndex: 9999 }}
+style={{ zIndex: 99999 }}
 onClick={onClose}
 >
 <div 
@@ -134,4 +135,7 @@ Kapat
 </div>
 </div>
 );
+
+// Portal kullanarak body'ye render et
+return createPortal(modalContent, document.body);
 }
