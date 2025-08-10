@@ -7,11 +7,13 @@ import { useRouter } from "next/navigation";
 import { useSession } from "@supabase/auth-helpers-react";
 import { supabase, signInWithGoogle, signOut } from "@/lib/supabase/client";
 import {
-	FaUserCircle,
-	FaBars,
-	FaList,
-	FaInfoCircle,
-	FaSignOutAlt,
+FaUserCircle,
+FaBars,
+FaList,
+FaInfoCircle,
+FaSignOutAlt,
+FaGlobe,
+FaUser,
 } from "react-icons/fa"; // Importing icons
 
 export default function Navbar() {
@@ -64,6 +66,26 @@ Boxify
 </h1>
 </div>
 </Link>
+
+{/* Navigation Links - Only show when logged in */}
+{session && !loading && (
+<div className="hidden md:flex items-center space-x-6">
+<Link 
+href="/explore"
+className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200"
+>
+<FaGlobe size={16} />
+<span>Keşfet</span>
+</Link>
+<Link 
+href={`/profile/${session.user.id}`}
+className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200"
+>
+<FaUser size={16} />
+<span>Profilim</span>
+</Link>
+</div>
+)}
 
 <div className="ml-auto flex items-center space-x-4">
 {loading ? (

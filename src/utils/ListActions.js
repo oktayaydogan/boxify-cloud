@@ -1,30 +1,30 @@
 import { supabase } from "@/lib/supabase/client";
 
-export const createList = async (listName, setError, setLists, lists) => {
-	if (!listName) {
-		setError("Liste adı boş olamaz.");
-		return;
-	}
+export const createList = async (listName, setError, setLists, lists, isPublic = false) => {
+if (!listName) {
+setError("Liste adı boş olamaz.");
+return;
+}
 
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
+const {
+data: { user },
+} = await supabase.auth.getUser();
 
-	if (!user) {
-		setError("Kullanıcı oturumu açık değil.");
-		return;
-	}
+if (!user) {
+setError("Kullanıcı oturumu açık değil.");
+return;
+}
 
-	const { data, error } = await supabase
-		.from("lists")
-		.insert([{ name: listName, user_id: user.id, is_public: false }])
-		.select();
+const { data, error } = await supabase
+.from("lists")
+.insert([{ name: listName, user_id: user.id, is_public: isPublic }])
+.select();
 
-	if (error) {
-		setError(error.message);
-	} else {
-		setLists([data[0], ...lists]);
-	}
+if (error) {
+setError(error.message);
+} else {
+setLists([data[0], ...lists]);
+}
 };
 
 export const deleteList = async (id, setError, setLists, lists) => {

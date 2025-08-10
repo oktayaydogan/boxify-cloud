@@ -15,13 +15,15 @@ export default function ListsPage() {
 const { lists, error, loading, setError, setLists, searchLists } = useLists();
 const [listName, setListName] = useState("");
 const [isInputVisible, setIsInputVisible] = useState(false);
+const [isPublic, setIsPublic] = useState(false);
 const [searchTerm, setSearchTerm] = useState("");
 const [isSearching, setIsSearching] = useState(false);
 
 const handleCreateList = async () => {
-await createList(listName, setError, setLists, lists);
+await createList(listName, setError, setLists, lists, isPublic);
 setListName("");
 setIsInputVisible(false);
+setIsPublic(false);
 };
 
 const handleSearch = (value) => {
@@ -120,22 +122,96 @@ className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 trans
 </div>
 
 {isInputVisible && (
-<div className="flex flex-col sm:flex-row w-full mb-6 gap-2 sm:gap-0">
+<div className="bg-gray-50 p-6 rounded-xl mb-6 border border-gray-200">
+<h3 className="text-lg font-semibold text-gray-800 mb-4">Yeni Liste Oluştur</h3>
+
+{/* Liste Adı */}
+<div className="mb-4">
+<label className="block text-sm font-medium text-gray-700 mb-2">
+Liste Adı
+</label>
 <input
 onKeyDown={(e) => e.key === "Enter" && handleCreateList()}
 type="text"
 value={listName}
 onChange={(e) => setListName(e.target.value)}
-placeholder="Yeni liste adı"
-className="flex-grow p-3 border rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition duration-200"
+placeholder="Listeme adı girin..."
+className="w-full p-3 border rounded-lg focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition duration-200"
 />
+</div>
+
+{/* Privacy Seçimi */}
+<div className="mb-6">
+<label className="block text-sm font-medium text-gray-700 mb-3">
+Gizlilik Ayarı
+</label>
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+{/* Özel Liste */}
+<div 
+onClick={() => setIsPublic(false)}
+className={`p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${
+!isPublic 
+? 'border-blue-500 bg-blue-50' 
+: 'border-gray-200 hover:border-gray-300'
+}`}
+>
+<div className="flex items-center gap-3">
+<div className={`w-4 h-4 rounded-full border-2 ${
+!isPublic ? 'border-blue-500 bg-blue-500' : 'border-gray-300'
+}`}>
+{!isPublic && <div className="w-2 h-2 bg-white rounded-full m-0.5"></div>}
+</div>
+<div>
+<h4 className="font-semibold text-gray-800">🔒 Özel</h4>
+<p className="text-sm text-gray-600">Sadece siz görebilirsiniz</p>
+</div>
+</div>
+</div>
+
+{/* Herkese Açık Liste */}
+<div 
+onClick={() => setIsPublic(true)}
+className={`p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${
+isPublic 
+? 'border-green-500 bg-green-50' 
+: 'border-gray-200 hover:border-gray-300'
+}`}
+>
+<div className="flex items-center gap-3">
+<div className={`w-4 h-4 rounded-full border-2 ${
+isPublic ? 'border-green-500 bg-green-500' : 'border-gray-300'
+}`}>
+{isPublic && <div className="w-2 h-2 bg-white rounded-full m-0.5"></div>}
+</div>
+<div>
+<h4 className="font-semibold text-gray-800">🌍 Herkese Açık</h4>
+<p className="text-sm text-gray-600">Herkes görüntüleyebilir</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{/* Action Buttons */}
+<div className="flex gap-3 justify-end">
+<button
+onClick={() => {
+setIsInputVisible(false);
+setListName("");
+setIsPublic(false);
+}}
+className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition duration-300"
+>
+İptal
+</button>
 <button
 onClick={handleCreateList}
 disabled={!listName.trim()}
-className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg sm:rounded-l-none sm:rounded-r-lg transition duration-300"
+className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
 >
 Liste Oluştur
 </button>
+</div>
 </div>
 )}
 
