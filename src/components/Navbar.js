@@ -67,27 +67,46 @@ Boxify
 </div>
 </Link>
 
+<div className="flex-1 flex items-center justify-center">
 {/* Navigation Links - Only show when logged in */}
 {session && !loading && (
-<div className="hidden md:flex items-center space-x-6">
+<div className="hidden md:flex items-center space-x-8">
+<Link 
+href="/lists"
+className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200 font-medium"
+>
+<FaList size={16} />
+<span>Listelerim</span>
+</Link>
 <Link 
 href="/explore"
-className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200"
+className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200 font-medium"
 >
 <FaGlobe size={16} />
 <span>Keşfet</span>
 </Link>
 <Link 
 href={`/profile/${session.user.id}`}
-className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200"
+className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200 font-medium"
 >
 <FaUser size={16} />
 <span>Profilim</span>
 </Link>
 </div>
 )}
+</div>
 
-<div className="ml-auto flex items-center space-x-4">
+<div className="flex items-center space-x-4">
+{/* Mobile Menu Button */}
+{session && !loading && (
+<button
+onClick={() => setMenuOpen(!menuOpen)}
+className="md:hidden p-2 text-gray-600 hover:text-blue-600 transition duration-200"
+>
+<FaBars size={20} />
+</button>
+)}
+
 {loading ? (
 // Yükleniyor göstergesi
 <div className="flex items-center gap-2">
@@ -141,6 +160,38 @@ Giriş Yap
 </button>
 )}
 </div>
+
+{/* Mobile Menu */}
+{menuOpen && session && !loading && (
+<div className="absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg md:hidden">
+<div className="px-6 py-4 space-y-4">
+<Link 
+href="/lists"
+onClick={() => setMenuOpen(false)}
+className="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition duration-200 font-medium py-2"
+>
+<FaList size={16} />
+<span>Listelerim</span>
+</Link>
+<Link 
+href="/explore"
+onClick={() => setMenuOpen(false)}
+className="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition duration-200 font-medium py-2"
+>
+<FaGlobe size={16} />
+<span>Keşfet</span>
+</Link>
+<Link 
+href={`/profile/${session.user.id}`}
+onClick={() => setMenuOpen(false)}
+className="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition duration-200 font-medium py-2"
+>
+<FaUser size={16} />
+<span>Profilim</span>
+</Link>
+</div>
+</div>
+)}
 </nav>
 );
 }
