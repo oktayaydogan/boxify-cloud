@@ -20,13 +20,7 @@ try {
 setLoading(true);
 const { data, error } = await supabase
 .from("lists")
-.select(`
-*,
-users:user_id (
-id,
-user_metadata
-)
-`)
+.select("*")
 .eq("is_public", true)
 .order("created_at", { ascending: false });
 
@@ -51,8 +45,7 @@ if (!searchTerm) {
 setFilteredLists(publicLists);
 } else {
 const filtered = publicLists.filter(list =>
-list.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-list.users?.user_metadata?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+list.name.toLowerCase().includes(searchTerm.toLowerCase())
 );
 setFilteredLists(filtered);
 }
@@ -143,7 +136,7 @@ className="flex-1"
 href={`/profile/${list.user_id}`}
 className="hover:text-blue-600 transition duration-200"
 >
-{list.users?.user_metadata?.name || "Anonim Kullanıcı"}
+Kullanıcı
 </Link>
 </div>
 </div>

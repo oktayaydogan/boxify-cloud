@@ -29,13 +29,7 @@ setIsOwnProfile(isOwn);
 // Fetch user's public lists (or all lists if own profile)
 let query = supabase
 .from("lists")
-.select(`
-*,
-users:user_id (
-id,
-user_metadata
-)
-`)
+.select("*")
 .eq("user_id", profileUserId);
 
 // If not own profile, only get public lists
@@ -50,16 +44,24 @@ if (listsError) {
 console.error("Error fetching lists:", listsError);
 } else {
 setPublicLists(listsData || []);
-// Set profile user from the first list's user data
-if (listsData && listsData.length > 0 && listsData[0].users) {
-setProfileUser(listsData[0].users);
-} else if (isOwn && session?.user) {
-// If it's own profile but no lists, use session data
+}
+
+// Set profile user info
+if (isOwn && session?.user) {
+// For own profile, use session data
 setProfileUser({
 id: session.user.id,
-user_metadata: session.user.user_metadata
+user_metadata: session.user.user_metadata,
+created_at: session.user.created_at
 });
-}
+} else {
+// For other profiles, we need to get user info differently
+// For now, set a placeholder
+setProfileUser({
+id: profileUserId,
+user_metadata: { name: "Kullanıcı" },
+created_at: new Date().toISOString()
+});
 }
 } catch (error) {
 console.error("Error fetching profile:", error);
