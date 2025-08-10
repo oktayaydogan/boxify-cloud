@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import { useEffect } from "react";
-import { FaPlus, FaSearch, FaTimes, FaSpinner, FaBox } from "react-icons/fa";
+import { FaPlus, FaSearch, FaTimes, FaSpinner, FaBox, FaPrint } from "react-icons/fa";
 import Link from "next/link";
 import useLists from "@/hooks/useLists";
 import { createList, deleteList } from "@/utils/ListActions";
@@ -105,6 +105,15 @@ className="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-gray-600
 </div>
 <div className="flex gap-2 items-center">
 {!isSearching && lists.length > 0 && (
+<>
+<Link 
+href="/lists/print-qr"
+className="px-4 py-2 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white rounded-lg transition duration-300 flex items-center justify-center gap-1 whitespace-nowrap"
+>
+<FaPrint />
+<span className="hidden sm:inline">QR Yazdır</span>
+<span className="sm:hidden">QR</span>
+</Link>
 <Link 
 href="/lists/all-items"
 className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition duration-300 flex items-center justify-center gap-1 whitespace-nowrap"
@@ -113,6 +122,7 @@ className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-pur
 <span className="hidden sm:inline">Tüm Öğeler</span>
 <span className="sm:hidden">Öğeler</span>
 </Link>
+</>
 )}
 <button
 onClick={() => setIsInputVisible(!isInputVisible)}

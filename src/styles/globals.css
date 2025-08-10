@@ -1,3 +1,81 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Print Styles for QR Code Printing */
+@media print {
+  /* Page setup */
+  @page {
+    margin: 1cm;
+    size: A4;
+  }
+
+  /* Hide non-print elements */
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print\:block {
+    display: block !important;
+  }
+
+  /* Print-specific styling */
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+
+  .print\:border-gray-300 {
+    border-color: #d1d5db !important;
+  }
+
+  .print\:rounded-none {
+    border-radius: 0 !important;
+  }
+
+  .print\:bg-white {
+    background-color: white !important;
+  }
+
+  .print\:p-2 {
+    padding: 0.5rem !important;
+  }
+
+  .print\:text-xs {
+    font-size: 0.75rem !important;
+  }
+
+  .print\:gap-4 {
+    gap: 1rem !important;
+  }
+
+  .print\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .print\:w-24 {
+    width: 6rem !important;
+  }
+
+  .print\:h-24 {
+    height: 6rem !important;
+  }
+
+  /* Prevent page breaks inside QR code cards */
+  .print\:page-break-inside-avoid {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Force black text for better printing */
+  body {
+    color: black !important;
+    background: white !important;
+  }
+
+  /* Optimize colors for printing */
+  * {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+}
