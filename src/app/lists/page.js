@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import { FaPlus, FaSearch, FaTimes, FaSpinner } from "react-icons/fa";
+import { FaPlus, FaSearch, FaTimes, FaSpinner, FaBox } from "react-icons/fa";
+import Link from "next/link";
 import useLists from "@/hooks/useLists";
 import { createList, deleteList } from "@/utils/ListActions";
 import Card from "@/components/Card";
@@ -66,7 +67,9 @@ handleDeleteList={() => deleteList(list.id, setError, setLists, lists)}
 		<Card>
 			<CardTitle>Listelerinizi Yönetin</CardTitle>
 			{error && <p className="text-center text-red-500 mb-4">{error}</p>}
-<div className="flex flex-col sm:flex-row justify-between gap-2 items-stretch sm:items-center mb-4">
+<div className="flex flex-col gap-4 mb-4">
+{/* Search and Actions Row */}
+<div className="flex flex-col sm:flex-row justify-between gap-2 items-stretch sm:items-center">
 <div className="flex-grow relative">
 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
 <FaSearch className="h-4 w-4 text-gray-400" />
@@ -102,6 +105,20 @@ className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 trans
 <span className="sm:hidden">Yeni</span>
 </button>
 </div>
+</div>
+
+{/* View All Items Button */}
+{!isSearching && lists.length > 0 && (
+<div className="flex justify-center">
+<Link 
+href="/lists/all-items"
+className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2"
+>
+<FaBox />
+Tüm Öğeleri Görüntüle
+</Link>
+</div>
+)}
 </div>
 
 {isInputVisible && (

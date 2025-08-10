@@ -1,8 +1,37 @@
 import Link from "next/link";
-import { FaList, FaLock, FaGlobe, FaTrash, FaCalendarAlt } from "react-icons/fa";
-import { memo } from "react";
+import { FaList, FaLock, FaGlobe, FaTrash, FaCalendarAlt, FaBox } from "react-icons/fa";
+import { memo, useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase/client";
 
 function ListItem({ list, handleDeleteList }) {
+const [itemCount, setItemCount] = useState(0);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+const fetchItemCount = async () => {
+try {
+const { count, error } = await supabase
+.from("items")
+.select("*", { count: "exact", head: true })
+.eq("list_id", list.id);
+
+if (error) {
+console.error("Error fetching item count:", error);
+setItemCount(0);
+} else {
+setItemCount(count || 0);
+}
+} catch (error) {
+console.error("Error:", error);
+setItemCount(0);
+} finally {
+setLoading(false);
+}
+};
+
+fetchItemCount();
+}, [list.id]);
+
 return (
 <div className="group p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 w-full bg-white">
 <div className="flex items-start justify-between mb-3">
@@ -17,6 +46,13 @@ return (
 {list.name}
 </h2>
 </Link>
+{/* Item Count */}
+<div className="flex items-center gap-1 mt-1">
+<FaBox size={12} className="text-gray-400" />
+<span className="text-sm text-gray-500">
+{loading ? "..." : `${itemCount} öğe`}
+</span>
+</div>
 </div>
 </div>
 {/* Delete Button */}
