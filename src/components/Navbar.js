@@ -48,7 +48,7 @@ export default function Navbar() {
 	};
 
 return (
-<nav className="fixed top-0 w-full flex items-center justify-between px-6 py-4 bg-white backdrop-blur-lg bg-opacity-95 border-b border-gray-200 shadow-lg z-50">
+<nav className="print:hidden fixed top-0 w-full flex items-center justify-between px-6 py-4 bg-white backdrop-blur-lg bg-opacity-95 border-b border-gray-200 shadow-lg z-50">
 {/* Logo */}
 <Link href="/">
 <div className="flex items-center space-x-3 cursor-pointer group">

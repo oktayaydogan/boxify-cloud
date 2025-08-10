@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
 			/>
 			<meta name="apple-mobile-web-app-title" content="Boxify" />
 			<link rel="manifest" href="/manifest.json" />
-<body className="antialiased pt-20 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 min-h-screen">
+<body className="antialiased pt-20 print:pt-0 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 print:bg-white min-h-screen">
 <ClientWrapper>
 <Navbar />
 <main className="container mx-auto px-4 py-6">{children}</main>
