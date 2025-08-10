@@ -35,6 +35,11 @@ useEffect(() => {
 fetchItems();
 }, [fetchItems]);
 
+// Update page title
+useEffect(() => {
+document.title = "Kutu Öğeleri - Boxify";
+}, []);
+
 // Listeye öğe ekleme
 async function addItem() {
 if (!itemName) {
@@ -69,15 +74,17 @@ setItems(items.filter((item) => item.id !== itemId));
 
 	return (
 		<Card>
-			<div className="flex items-center justify-between mb-4">
-				<CardTitle>Liste Öğeleri</CardTitle>
-				<button
-					onClick={() => router.push("/lists")}
-					className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition duration-300"
-				>
-					Geri
-				</button>
-			</div>
+<div className="mb-4">
+<CardTitle>Kutu Öğeleri</CardTitle>
+<div className="flex justify-end -mt-4 mb-4">
+<button
+onClick={() => router.push("/lists")}
+className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition duration-300"
+>
+Geri
+</button>
+</div>
+</div>
 
 			<div className="flex mb-6 gap-2">
 				<input

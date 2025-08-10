@@ -16,6 +16,11 @@ const [searchTerm, setSearchTerm] = useState("");
 const [filteredItems, setFilteredItems] = useState([]);
 
 useEffect(() => {
+// Update page title
+document.title = "Tüm Öğeler - Boxify";
+}, []);
+
+useEffect(() => {
 const fetchAllItems = async () => {
 try {
 setLoading(true);
@@ -77,8 +82,9 @@ console.error("Error:", error);
 
 return (
 <Card>
-<div className="flex items-center justify-between mb-4">
+<div className="mb-4">
 <CardTitle>Tüm Öğeler</CardTitle>
+<div className="flex justify-end -mt-4 mb-4">
 <button
 onClick={() => router.push("/lists")}
 className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition duration-300 flex items-center gap-2"
@@ -86,6 +92,7 @@ className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transit
 <FaArrowLeft />
 Geri
 </button>
+</div>
 </div>
 
 {/* Search Bar */}

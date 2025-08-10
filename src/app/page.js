@@ -13,15 +13,20 @@ export default function HomePage() {
 	const session = useSession();
 	const router = useRouter();
 
-	useEffect(() => {
-		if (session) router.push("/lists");
-	}, [session, router]);
+useEffect(() => {
+// Update page title
+document.title = "Boxify - Kutularınızı Yönetin";
+}, []);
+
+useEffect(() => {
+if (session) router.push("/lists");
+}, [session, router]);
 
 return (
 <Card>
 <CardTitle>Boxify&apos;a Hoşgeldiniz!</CardTitle>
 <p className="text-lg text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-Kendi listelerinizi oluşturun, düzenleyin ve QR kodlarla yönetimi
+Kendi kutularınızı oluşturun, düzenleyin ve QR kodlarla yönetimi
 kolaylaştırın.
 </p>
 
@@ -45,11 +50,11 @@ Google ile Giriş Yap
 <FaList size={24} />
 </div>
 <h2 className="text-xl font-bold text-gray-800">
-Listelerinizi Yönetin
+Kutularınızı Yönetin
 </h2>
 </div>
 <p className="text-gray-600">
-Farklı listeler oluşturun, öğeleri düzenleyin ve her listeyi kendi
+Farklı kutular oluşturun, öğeleri düzenleyin ve her kutuyu kendi
 QR koduyla yönetin.
 </p>
 </div>
@@ -81,7 +86,7 @@ Güvenli ve Gizli
 </h2>
 </div>
 <p className="text-gray-600">
-Listelerinizi genel veya özel yaparak kimin erişebileceğini siz
+Kutularınızı genel veya özel yaparak kimin erişebileceğini siz
 belirleyin.
 </p>
 </div>
