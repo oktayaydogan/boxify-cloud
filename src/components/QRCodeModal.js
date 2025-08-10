@@ -16,6 +16,20 @@ setQrValue(qrUrl);
 }
 }, [isOpen, listId]);
 
+// Body scroll'unu engelle modal açıkken
+useEffect(() => {
+if (isOpen) {
+document.body.style.overflow = 'hidden';
+} else {
+document.body.style.overflow = 'unset';
+}
+
+// Cleanup function
+return () => {
+document.body.style.overflow = 'unset';
+};
+}, [isOpen]);
+
 const downloadQR = () => {
 const svg = document.getElementById("qr-code-svg");
 const svgData = new XMLSerializer().serializeToString(svg);
@@ -43,8 +57,15 @@ img.src = "data:image/svg+xml;base64," + btoa(svgData);
 if (!isOpen) return null;
 
 return (
-<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-<div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all">
+<div 
+className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"
+style={{ zIndex: 9999 }}
+onClick={onClose}
+>
+<div 
+className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all scale-100"
+onClick={(e) => e.stopPropagation()}
+>
 {/* Header */}
 <div className="flex items-center justify-between mb-6">
 <div className="flex items-center gap-3">
