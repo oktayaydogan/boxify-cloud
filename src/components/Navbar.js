@@ -45,63 +45,80 @@ export default function Navbar() {
 		return initials || null;
 	};
 
-	return (
-		<nav className="fixed top-0 w-full flex items-center justify-between p-4 bg-gray-800 text-white z-50">
-			{/* Logo */}
-			<Link href="/">
-				<div className="flex items-center space-x-2 cursor-pointer">
-					<Image
-						src="/icon512_rounded.png"
-						width={40}
-						height={40}
-						alt="Boxify Logo"
-					/>
-					<h1 className="text-lg font-bold cursor-pointer">Boxify</h1>
-				</div>
-			</Link>
+return (
+<nav className="fixed top-0 w-full flex items-center justify-between px-6 py-4 bg-white backdrop-blur-lg bg-opacity-95 border-b border-gray-200 shadow-lg z-50">
+{/* Logo */}
+<Link href="/">
+<div className="flex items-center space-x-3 cursor-pointer group">
+<div className="relative">
+<Image
+src="/icon512_rounded.png"
+width={40}
+height={40}
+alt="Boxify Logo"
+className="transition-transform duration-300 group-hover:scale-110"
+/>
+</div>
+<h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+Boxify
+</h1>
+</div>
+</Link>
 
-			<div className="ml-auto flex items-center space-x-4">
-				{loading ? (
-					// Yükleniyor göstergesi
-					<span className="text-gray-400">Yükleniyor...</span>
-				) : session ? (
-					<div className="relative">
-						<button
-							onClick={() => setUserMenuOpen(!userMenuOpen)}
-							className="p-1 bg-gray-700 rounded-full"
-						>
-							{/* Kullanıcı adı yoksa ikon göster */}
-							{getInitials() ? (
-								<div className="bg-gray-700 text-white rounded-full w-8 h-8 flex items-center justify-center">
-									<span>{getInitials()}</span>
-								</div>
-							) : (
-								<FaUserCircle size={24} className="text-white" /> // User Icon
-							)}
-						</button>
-						{userMenuOpen && (
-							<ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
-								<li>
-									<button
-										onClick={handleSignOut}
-										className="flex items-center space-x-2 w-full px-4 py-2 text-left hover:bg-gray-200 rounded"
-									>
-										<FaSignOutAlt /> {/* Çıkış Yap Icon */}
-										<span>Çıkış Yap</span>
-									</button>
-								</li>
-							</ul>
-						)}
-					</div>
-				) : (
-					<button
-						onClick={signInWithGoogle}
-						className="px-4 py-2 bg-blue-500 rounded"
-					>
-						Giriş Yap
-					</button>
-				)}
-			</div>
-		</nav>
-	);
+<div className="ml-auto flex items-center space-x-4">
+{loading ? (
+// Yükleniyor göstergesi
+<div className="flex items-center gap-2">
+<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+<span className="text-gray-600">Yükleniyor...</span>
+</div>
+) : session ? (
+<div className="relative">
+<button
+onClick={() => setUserMenuOpen(!userMenuOpen)}
+className="group p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+>
+{/* Kullanıcı adı yoksa ikon göster */}
+{getInitials() ? (
+<div className="bg-white text-gray-700 rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">
+<span>{getInitials()}</span>
+</div>
+) : (
+<FaUserCircle size={24} className="text-white" />
+)}
+</button>
+{userMenuOpen && (
+<div className="absolute right-0 mt-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 overflow-hidden">
+<div className="py-2">
+<div className="px-4 py-3 bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-100">
+<p className="text-sm font-semibold text-gray-700">
+{session?.user?.user_metadata?.name || "Kullanıcı"}
+</p>
+<p className="text-xs text-gray-500">
+{session?.user?.email}
+</p>
+</div>
+<button
+onClick={handleSignOut}
+className="flex items-center space-x-3 w-full px-4 py-3 text-left hover:bg-red-50 transition duration-200 text-gray-700 hover:text-red-600"
+>
+<FaSignOutAlt className="text-red-500" />
+<span>Çıkış Yap</span>
+</button>
+</div>
+</div>
+)}
+</div>
+) : (
+<button
+onClick={signInWithGoogle}
+className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2"
+>
+<FaUserCircle />
+Giriş Yap
+</button>
+)}
+</div>
+</nav>
+);
 }
