@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import Card from "@/components/Card";
@@ -15,25 +15,25 @@ export default function ListPage({ params }) {
 	const [itemName, setItemName] = useState(""); // Yeni öğe adı durumu
 	const { id } = params;
 
-	// Öğelerin listelenmesi
-	useEffect(() => {
-		fetchItems();
-	}, [id]);
+const fetchItems = useCallback(async () => {
+setLoading(true);
+const { data, error } = await supabase
+.from("items")
+.select("*")
+.eq("list_id", id);
 
-	async function fetchItems() {
-		setLoading(true);
-		const { data, error } = await supabase
-			.from("items")
-			.select("*")
-			.eq("list_id", id);
+if (error) {
+console.error(error);
+} else {
+setLists(data);
+}
+setLoading(false);
+}, [id]);
 
-		if (error) {
-			console.error(error);
-		} else {
-			setLists(data);
-		}
-		setLoading(false);
-	}
+// Öğelerin listelenmesi
+useEffect(() => {
+fetchItems();
+}, [fetchItems]);
 
 	// Listeye öğe ekleme
 	async function addItem() {

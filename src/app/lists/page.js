@@ -85,7 +85,7 @@ className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 trans
 {isSearching && searchTerm.length >= 3 && (
 <div className="mb-4 p-3 bg-blue-50 rounded-lg">
 <p className="text-sm text-blue-600">
-"{searchTerm}" için arama sonuçları ({lists.length} sonuç bulundu)
+&ldquo;{searchTerm}&rdquo; için arama sonuçları ({lists.length} sonuç bulundu)
 </p>
 </div>
 )}

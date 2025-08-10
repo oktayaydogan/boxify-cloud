@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -17,33 +17,33 @@ export default function useLists() {
 		}
 	}, [error]);
 
-	const fetchLists = async () => {
-		const {
-			data: { user },
-		} = await supabase.auth.getUser();
+const fetchLists = useCallback(async () => {
+const {
+data: { user },
+} = await supabase.auth.getUser();
 
-		if (!user) {
-			router.push("/");
-			return;
-		}
+if (!user) {
+router.push("/");
+return;
+}
 
-		const { data, error } = await supabase
-			.from("lists")
-			.select("*")
-			.eq("user_id", user.id)
-			.order("created_at", { ascending: false });
+const { data, error } = await supabase
+.from("lists")
+.select("*")
+.eq("user_id", user.id)
+.order("created_at", { ascending: false });
 
-		setLoading(false);
-		if (error) {
-			setError(error.message);
-		} else {
-			setLists(data);
-		}
-	};
+setLoading(false);
+if (error) {
+setError(error.message);
+} else {
+setLists(data);
+}
+}, [router, setError, setLists]);
 
-	useEffect(() => {
-		fetchLists();
-	}, [router]);
+  useEffect(() => {
+    fetchLists();
+  }, [router, fetchLists]);
 
   const searchLists = async (searchTerm) => {
     if (searchTerm.length < 2) {
