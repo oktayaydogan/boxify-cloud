@@ -67,7 +67,7 @@ handleDeleteList={() => deleteList(list.id, setError, setLists, lists)}
 
 	return (
 		<Card>
-			<CardTitle>Listelerinizi Yönetin</CardTitle>
+			<CardTitle>Kutularınızı Yönetin</CardTitle>
 			{error && <p className="text-center text-red-500 mb-4">{error}</p>}
 <div className="flex flex-col gap-4 mb-4">
 {/* Search and Actions Row */}
@@ -113,7 +113,7 @@ onClick={() => setIsInputVisible(!isInputVisible)}
 className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300 flex items-center justify-center gap-1 whitespace-nowrap"
 >
 <FaPlus />
-<span className="hidden sm:inline">Yeni Liste</span>
+<span className="hidden sm:inline">Yeni Kutu</span>
 <span className="sm:hidden">Yeni</span>
 </button>
 </div>
@@ -123,19 +123,19 @@ className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 trans
 
 {isInputVisible && (
 <div className="bg-gray-50 p-6 rounded-xl mb-6 border border-gray-200">
-<h3 className="text-lg font-semibold text-gray-800 mb-4">Yeni Liste Oluştur</h3>
+<h3 className="text-lg font-semibold text-gray-800 mb-4">Yeni Kutu Oluştur</h3>
 
-{/* Liste Adı */}
+{/* Kutu Adı */}
 <div className="mb-4">
 <label className="block text-sm font-medium text-gray-700 mb-2">
-Liste Adı
+Kutu Adı
 </label>
 <input
 onKeyDown={(e) => e.key === "Enter" && handleCreateList()}
 type="text"
 value={listName}
 onChange={(e) => setListName(e.target.value)}
-placeholder="Listeme adı girin..."
+placeholder="Kutu adı girin..."
 className="w-full p-3 border rounded-lg focus:outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition duration-200"
 />
 </div>
@@ -209,7 +209,7 @@ onClick={handleCreateList}
 disabled={!listName.trim()}
 className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
 >
-Liste Oluştur
+Kutu Oluştur
 </button>
 </div>
 </div>
@@ -239,7 +239,7 @@ memoizedSearchResults
 {loading && <ListItemSkeleton />}
 {lists.length === 0 && !loading ? (
 <p className="col-span-full text-center text-gray-600">
-Henüz oluşturulmuş bir listeniz yok.
+Henüz oluşturulmuş bir kutunuz yok.
 </p>
 ) : (
 memoizedListResults

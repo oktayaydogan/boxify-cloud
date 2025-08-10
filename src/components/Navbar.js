@@ -76,7 +76,7 @@ href="/lists"
 className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition duration-200 font-medium"
 >
 <FaList size={16} />
-<span>Listelerim</span>
+<span>Kutularım</span>
 </Link>
 <Link 
 href="/explore"
@@ -171,7 +171,7 @@ onClick={() => setMenuOpen(false)}
 className="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition duration-200 font-medium py-2"
 >
 <FaList size={16} />
-<span>Listelerim</span>
+<span>Kutularım</span>
 </Link>
 <Link 
 href="/explore"

@@ -121,7 +121,7 @@ return (
 <div className="flex items-center gap-4 text-sm text-gray-600">
 <div className="flex items-center gap-1">
 <FaList size={12} />
-<span>{publicLists.length} {isOwnProfile ? "liste" : "herkese açık liste"}</span>
+<span>{publicLists.length} {isOwnProfile ? "kutu" : "herkese açık kutu"}</span>
 </div>
 <div className="flex items-center gap-1">
 <FaCalendarAlt size={12} />
@@ -137,7 +137,7 @@ year: 'numeric'
 {/* Lists Section */}
 <div className="mb-6">
 <CardTitle>
-{isOwnProfile ? "Listeleriniz" : `${getUserDisplayName()}'in Herkese Açık Listeleri`}
+{isOwnProfile ? "Kutularınız" : `${getUserDisplayName()}'in Herkese Açık Kutuları`}
 </CardTitle>
 </div>
 
@@ -148,15 +148,15 @@ year: 'numeric'
 <FaUser className="mx-auto text-gray-400 text-6xl mb-4" />
 <p className="text-gray-600 text-lg">
 {isOwnProfile 
-? "Henüz hiç liste oluşturmamışsınız." 
-: "Bu kullanıcının herkese açık listesi bulunmuyor."}
+? "Henüz hiç kutu oluşturmamışsınız." 
+: "Bu kullanıcının herkese açık kutusu bulunmuyor."}
 </p>
 {isOwnProfile && (
 <Link 
 href="/lists"
 className="inline-block mt-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-300"
 >
-İlk Listenizi Oluşturun
+İlk Kutunuzu Oluşturun
 </Link>
 )}
 </div>
@@ -212,7 +212,7 @@ list.is_public
 href={`/lists/${list.id}`}
 className="block w-full text-center py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition duration-200 font-medium"
 >
-Listeyi Görüntüle
+Kutuyu Görüntüle
 </Link>
 </div>
 </div>
