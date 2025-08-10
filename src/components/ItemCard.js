@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { FaBox, FaTrash, FaCalendarAlt } from "react-icons/fa";
 
-function ItemCard({ item, handleDeleteItem }) {
+function ItemCard({ item, handleDeleteItem, showDeleteButton = true }) {
 return (
 <div className="group p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 w-full bg-white">
 <div className="flex items-start justify-between mb-3">
@@ -16,7 +16,8 @@ return (
 </h3>
 </div>
 </div>
-{/* Delete Button */}
+{/* Delete Button - Sadece showDeleteButton true ise göster */}
+{showDeleteButton && (
 <button
 onClick={(e) => {
 e.preventDefault();
@@ -27,6 +28,7 @@ title="Öğeyi sil"
 >
 <FaTrash size={14} />
 </button>
+)}
 </div>
 
 {/* Metadata */}
