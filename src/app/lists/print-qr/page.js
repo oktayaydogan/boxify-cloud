@@ -187,9 +187,13 @@ Yazdır
 
 {/* QR Grid */}
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3 gap-6 print:gap-4">
-{lists
-.filter(list => selectedLists.has(list.id))
-.map((list) => {
+{lists.map((list) => {
+// Print'te sadece seçili olanları göster, ekranda hepsini göster
+const shouldShow = window?.matchMedia?.('print')?.matches 
+? selectedLists.has(list.id) 
+: true;
+
+if (!shouldShow) return null;
 const qrUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/lists/${list.id}`;
 return (
 <div
@@ -197,10 +201,10 @@ key={list.id}
 className={`
 border-2 rounded-lg p-4 text-center transition-all duration-200 print:border-gray-300 print:rounded-none
 ${selectedLists.has(list.id) 
-? 'border-blue-300 bg-blue-50 print:bg-white' 
-: 'border-gray-200 bg-gray-50'
+? 'border-blue-300 bg-blue-50 print:bg-white opacity-100' 
+: 'border-gray-200 bg-gray-50 opacity-50 hover:opacity-75'
 }
-print:page-break-inside-avoid
+print:page-break-inside-avoid print:opacity-100
 `}
 onClick={() => !window.matchMedia('print').matches && toggleListSelection(list.id)}
 style={{ cursor: window?.matchMedia?.('print')?.matches ? 'default' : 'pointer' }}
