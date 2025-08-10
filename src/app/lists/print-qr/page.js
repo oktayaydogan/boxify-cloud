@@ -129,7 +129,7 @@ return (
 <div>
 {/* Screen Only - Action Bar */}
 <div className="print:hidden mb-6">
-<Card>
+<div className="w-full max-w-4xl mx-auto p-6 bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/20">
 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
 <div className="flex-1">
 <h1 className="text-2xl font-bold text-gray-800 mb-2">QR Kodlarını Yazdır</h1>
@@ -178,12 +178,12 @@ Yazdır
 </button>
 </div>
 </div>
-</Card>
+</div>
 </div>
 
 {/* Print Area */}
 <div className="print:bg-white print:shadow-none print:border-none print:rounded-none print:p-0">
-<div className="print:bg-white print:shadow-none print:border-none print:rounded-none print:p-0">
+<div className="w-full max-w-6xl mx-auto px-4 print:px-0 print:max-w-none">
 
 {/* QR Grid */}
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3 gap-6 print:gap-4">
