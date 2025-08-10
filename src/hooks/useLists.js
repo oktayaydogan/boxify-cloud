@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 export default function useLists() {
-	const [lists, setLists] = useState([]);
-	const [error, setError] = useState("");
-	const [loading, setLoading] = useState(true);
-	const router = useRouter();
+const [lists, setLists] = useState([]);
+const [error, setError] = useState("");
+const [loading, setLoading] = useState(true);
+const router = useRouter();
+const debounceRef = useRef(null);
 
 	useEffect(() => {
 		if (error) {
@@ -160,5 +161,33 @@ setLists(data);
     setLists(results);
   };
 
-	return { lists, error, loading, setError, setLists, searchLists, fetchLists };
+  // Debounced search fonksiyonu
+  const debouncedSearchLists = useCallback((searchTerm) => {
+    // Önceki timeout'u temizle
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    // Eğer arama terimi boşsa hemen çalıştır
+    if (searchTerm.length < 2) {
+      searchLists(searchTerm);
+      return;
+    }
+
+    // 500ms bekle
+    debounceRef.current = setTimeout(() => {
+      searchLists(searchTerm);
+    }, 500);
+  }, []);
+
+  // Component unmount olduğunda timeout'u temizle
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, []);
+
+return { lists, error, loading, setError, setLists, searchLists: debouncedSearchLists, fetchLists };
 }
