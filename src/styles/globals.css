@@ -25,6 +25,10 @@
     box-shadow: none !important;
   }
 
+  .print\:border-none {
+    border: none !important;
+  }
+
   .print\:border-gray-300 {
     border-color: #d1d5db !important;
   }
@@ -35,6 +39,10 @@
 
   .print\:bg-white {
     background-color: white !important;
+  }
+
+  .print\:p-0 {
+    padding: 0 !important;
   }
 
   .print\:p-2 {

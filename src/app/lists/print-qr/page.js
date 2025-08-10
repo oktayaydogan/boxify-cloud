@@ -48,6 +48,10 @@ fetchUserLists();
 }, [session, router]);
 
 const handlePrint = () => {
+if (selectedLists.size === 0) {
+alert("Yazdırmak için en az bir kutu seçin.");
+return;
+}
 window.print();
 };
 
@@ -129,9 +133,14 @@ return (
 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
 <div>
 <h1 className="text-2xl font-bold text-gray-800 mb-2">QR Kodlarını Yazdır</h1>
-<p className="text-gray-600">
+<p className="text-gray-600 mb-2">
 {selectedLists.size} / {lists.length} kutu seçili
 </p>
+{selectedLists.size === 0 && (
+<p className="text-red-500 text-sm">
+⚠️ Yazdırmak için en az bir kutu seçin
+</p>
+)}
 </div>
 <div className="flex flex-wrap gap-2">
 <button
@@ -173,13 +182,8 @@ Yazdır
 </div>
 
 {/* Print Area */}
-<div className="print:shadow-none">
-<Card>
-{/* Print Title */}
-<div className="hidden print:block text-center mb-8">
-<h1 className="text-3xl font-bold mb-2">Kutu QR Kodları</h1>
-<p className="text-gray-600">Boxify - {new Date().toLocaleDateString('tr-TR')}</p>
-</div>
+<div className="print:bg-white print:shadow-none print:border-none print:rounded-none print:p-0">
+<div className="print:bg-white print:shadow-none print:border-none print:rounded-none print:p-0">
 
 {/* QR Grid */}
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 print:grid-cols-3 gap-6 print:gap-4">
@@ -249,13 +253,7 @@ className="print:w-24 print:h-24"
 })}
 </div>
 
-{/* Print Footer */}
-<div className="hidden print:block text-center mt-8 pt-4 border-t border-gray-200">
-<p className="text-xs text-gray-500">
-Bu QR kodları Boxify tarafından oluşturulmuştur - boxify.app
-</p>
 </div>
-</Card>
 </div>
 </div>
 );
